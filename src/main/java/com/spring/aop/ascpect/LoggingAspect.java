@@ -2,6 +2,7 @@ package com.spring.aop.ascpect;
 
 import com.spring.aop.domain.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
@@ -44,6 +45,25 @@ public class LoggingAspect {
         String method = joinPoint.getSignature().toShortString();
         System.out.println("\n=====> Executing @After on method: " + method
                 + " regardless of the outcome");
+    }
+
+    @Around("execution(* com.spring.aop.dao.CustomerDAO.getCustomers(..))")
+    public Object beforeAndAfter(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        String method = proceedingJoinPoint.getSignature().toShortString();
+        System.out.println("\n=====> Executing @Aaround on method: " + method
+                + " regardless of the outcome");
+
+        long begin = System.currentTimeMillis();
+
+        Object result = proceedingJoinPoint.proceed();
+
+        long end = System.currentTimeMillis();
+
+        long duration = end - begin;
+
+        System.out.println("\n=====> Duration: " + duration / 1000 + " seconds");
+
+        return result;
     }
 
     @AfterReturning(

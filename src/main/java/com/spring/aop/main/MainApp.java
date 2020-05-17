@@ -2,7 +2,7 @@ package com.spring.aop.main;
 
 import com.spring.aop.config.Config;
 import com.spring.aop.dao.AccountDAO;
-import com.spring.aop.dao.MembershipDAO;
+import com.spring.aop.dao.CustomerDAO;
 import com.spring.aop.domain.Account;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -18,9 +18,7 @@ public class MainApp {
 
         // get the bean from spring container
         AccountDAO accountDAO = context.getBean("accountDAO", AccountDAO.class);
-
-        // get membership bean from container
-        MembershipDAO membershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
+        CustomerDAO customerDAO = context.getBean("customerDAO", CustomerDAO.class);
 
         // call the business method
         accountDAO.addAccount(new Account("Dazz's account", "silver"), true);
@@ -36,14 +34,17 @@ public class MainApp {
 
         // call method to find account
         try {
-            accounts = accountDAO.findAccounts(true);
+            accounts = accountDAO.findAccounts(false);
             System.out.println("\n");
         } catch (Exception e) {
             System.out.println("\n\nMain Program ... caught exception: " + e);
         }
 
+        // call method to get customers
+        customerDAO.getCustomers();
 
         // close the context
+        System.out.println("\n");
         context.close();
     }
 }
