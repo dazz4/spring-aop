@@ -3,6 +3,7 @@ package com.spring.aop.main;
 import com.spring.aop.config.Config;
 import com.spring.aop.dao.AccountDAO;
 import com.spring.aop.dao.MembershipDAO;
+import com.spring.aop.domain.Account;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MainApp {
@@ -20,7 +21,7 @@ public class MainApp {
         MembershipDAO membershipDAO = context.getBean("membershipDAO", MembershipDAO.class);
 
         // call the business method
-        accountDAO.addAccount();
+        accountDAO.addAccount(new Account());
 
         // call method from membership
         membershipDAO.addAccount();
