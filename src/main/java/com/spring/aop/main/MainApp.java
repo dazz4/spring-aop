@@ -4,7 +4,6 @@ import com.spring.aop.config.Config;
 import com.spring.aop.dao.AccountDAO;
 import com.spring.aop.dao.MembershipDAO;
 import com.spring.aop.domain.Account;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MainApp {

@@ -10,7 +10,7 @@ public class AccountDAO {
 
     public void addAccount(Account account, boolean isFlagged) {
 
-        System.out.println(getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
+        System.out.println("\n" + getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
     }
 
     public boolean doWork() {

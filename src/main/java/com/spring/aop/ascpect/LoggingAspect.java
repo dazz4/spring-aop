@@ -2,26 +2,13 @@ package com.spring.aop.ascpect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(1)
 public class LoggingAspect {
-
-    // declaring a pointcut
-    @Pointcut("execution(* com.spring.aop.dao.*.*(..))")
-    private void forDaoPackage() {}
-
-    @Pointcut("execution(* com.spring.aop.dao.*.get*(..))")
-    private void getter() {}
-
-    @Pointcut("execution(* com.spring.aop.dao.*.set*(..))")
-    private void setter() {}
-
-    // combining pointcuts
-    @Pointcut(("forDaoPackage() && !(getter() || setter())"))
-    private void forDaoPackageNoGetterSetter() {}
 
     // add related advices for logging
 
@@ -30,29 +17,22 @@ public class LoggingAspect {
     // (..) - matches a method with one ore more arguments of any type
 
     // @Before("execution(public void com.spring.aop.dao.AccountDAO.addAccount())")
-    @Before("execution(void add*())")
+
+    @Before("com.spring.aop.ascpect.AopExpressions.forDaoPackageNoGetterSetter()")
     public void beforeAddAccountAdvice() {
 
-        System.out.println("\n=====> Executing @Before advice on add*()");
+        System.out.println("\n=====> Executing @Before advice on method");
     }
 
-    @Before("execution(* com.spring.aop.dao.MembershipDAO.add*())")
-    public void beforeAddAccountMembership() {
-
-        System.out.println("\n=====> Executing @Before advice on addAcccount() for MembershipDAO");
-    }
-
-    @Before("execution(* add*(com.spring.aop.domain.Account, ..))")
-    public void beforeAccountWithParam() {
-
-        System.out.println("\n=====> Add* method with (Account obj, ..))");
-    }
-
-    @Before("forDaoPackageNoGetterSetter()")
-    public void anyClassAndMethod() {
-
-        System.out.println("\n=====> Before any method in the dao package");
-    }
-
-
+//    @Before("execution(* com.spring.aop.dao.MembershipDAO.add*())")
+//    public void beforeAddAccountMembership() {
+//
+//        System.out.println("\n=====> Executing @Before advice on addAcccount() for MembershipDAO");
+//    }
+//
+//    @Before("execution(* add*(com.spring.aop.domain.Account, ..))")
+//    public void beforeAccountWithParam() {
+//
+//        System.out.println("\n=====> Add* method with (Account obj, ..))");
+//    }
 }
