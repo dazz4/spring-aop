@@ -6,6 +6,8 @@ import com.spring.aop.dao.MembershipDAO;
 import com.spring.aop.domain.Account;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.List;
+
 public class MainApp {
 
     public static void main(String[] args) {
@@ -30,9 +32,16 @@ public class MainApp {
         accountDAO.getName();
         accountDAO.getServiceCode();
 
+        List<Account> accounts = null;
+
         // call method to find account
-        accountDAO.findAccounts();
-        System.out.println("\n");
+        try {
+            accounts = accountDAO.findAccounts(true);
+            System.out.println("\n");
+        } catch (Exception e) {
+            System.out.println("\n\nMain Program ... caught exception: " + e);
+        }
+
 
         // close the context
         context.close();

@@ -16,7 +16,11 @@ public class AccountDAO {
         System.out.println("\n" + getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
     }
 
-    public List<Account> findAccounts() {
+    public List<Account> findAccounts(boolean flag) {
+
+        if (flag) {
+            throw new RuntimeException("No accounts found");
+        }
 
         List<Account> accounts = new ArrayList<>();
         accounts.add(new Account("John", "Silver"));
