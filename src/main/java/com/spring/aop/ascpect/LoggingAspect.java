@@ -1,11 +1,15 @@
 package com.spring.aop.ascpect;
 
+import com.spring.aop.domain.Account;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Aspect
 @Component
@@ -38,15 +42,15 @@ public class LoggingAspect {
         }
     }
 
-//    @Before("execution(* com.spring.aop.dao.MembershipDAO.add*())")
-//    public void beforeAddAccountMembership() {
-//
-//        System.out.println("\n=====> Executing @Before advice on addAcccount() for MembershipDAO");
-//    }
-//
-//    @Before("execution(* add*(com.spring.aop.domain.Account, ..))")
-//    public void beforeAccountWithParam() {
-//
-//        System.out.println("\n=====> Add* method with (Account obj, ..))");
-//    }
+    @AfterReturning(
+            pointcut = "execution(* com.spring.aop.dao.AccountDAO.findAccounts(..))",
+            returning = "result")
+    public void afterReturningFindAccounts(JoinPoint joinPoint, List<Account> result) {
+
+        String method = joinPoint.getSignature().toShortString();
+
+        System.out.println("\n=====> Executing @AfterReturning on method: " + method);
+        System.out.println("\n=====> result is: " + result);
+
+    }
 }

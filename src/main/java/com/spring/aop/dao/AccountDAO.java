@@ -2,6 +2,9 @@ package com.spring.aop.dao;
 import com.spring.aop.domain.Account;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class AccountDAO {
 
@@ -11,6 +14,15 @@ public class AccountDAO {
     public void addAccount(Account account, boolean isFlagged) {
 
         System.out.println("\n" + getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
+    }
+
+    public List<Account> findAccounts() {
+
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(new Account("John", "Silver"));
+        accounts.add(new Account("Luke", "Platinium"));
+
+        return accounts;
     }
 
     public boolean doWork() {

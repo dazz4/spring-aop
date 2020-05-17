@@ -30,8 +30,9 @@ public class MainApp {
         accountDAO.getName();
         accountDAO.getServiceCode();
 
-        // call method from membership
-        membershipDAO.addAccount();
+        // call method to find account
+        accountDAO.findAccounts();
+        System.out.println("\n");
 
         // close the context
         context.close();
