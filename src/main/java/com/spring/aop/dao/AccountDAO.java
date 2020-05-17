@@ -4,16 +4,19 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class AccountDAO {
+
+    private Logger myLogger = Logger.getLogger(getClass().getName());
 
     private String name;
     private String serviceCode;
 
     public void addAccount(Account account, boolean isFlagged) {
 
-        System.out.println("\n" + getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
+        myLogger.info("\n" + getClass() + ": DOING MY DB WORK: ADDING AN ACCOUNT");
     }
 
     public List<Account> findAccounts(boolean flag) {
@@ -30,28 +33,28 @@ public class AccountDAO {
     }
 
     public boolean doWork() {
-        System.out.println(getClass() + ": doWork()");
+        myLogger.info(getClass() + ": doWork()");
         return false;
     }
 
     public String getName() {
-        System.out.println(getClass() + ": inGetName()");
+        myLogger.info(getClass() + ": inGetName()");
 
         return name;
     }
 
     public void setName(String name) {
-        System.out.println(getClass() + ": inSetName()");
+        myLogger.info(getClass() + ": inSetName()");
         this.name = name;
     }
 
     public String getServiceCode() {
-        System.out.println(getClass() + ": inGetServiceCode()");
+        myLogger.info(getClass() + ": inGetServiceCode()");
         return serviceCode;
     }
 
     public void setServiceCode(String serviceCode) {
-        System.out.println(getClass() + ": inSetServiceCode");
+        myLogger.info(getClass() + ": inSetServiceCode");
         this.serviceCode = serviceCode;
     }
 }

@@ -7,8 +7,12 @@ import com.spring.aop.domain.Account;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class MainApp {
+
+    private static Logger myLogger = Logger.getLogger(MainApp.class.getName());
+
 
     public static void main(String[] args) {
 
@@ -35,16 +39,15 @@ public class MainApp {
         // call method to find account
         try {
             accounts = accountDAO.findAccounts(false);
-            System.out.println("\n");
+            myLogger.info("\n");
         } catch (Exception e) {
-            System.out.println("\n\nMain Program ... caught exception: " + e);
+            myLogger.info("\n\nMain Program ... caught exception: " + e);
         }
 
         // call method to get customers
         customerDAO.getCustomers();
 
         // close the context
-        System.out.println("\n");
         context.close();
     }
 }

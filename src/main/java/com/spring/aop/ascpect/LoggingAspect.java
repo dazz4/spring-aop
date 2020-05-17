@@ -9,11 +9,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 @Aspect
 @Component
 @Order(1)
 public class LoggingAspect {
+
+    private Logger myLogger = Logger.getLogger(getClass().getName());
 
     // add related advices for logging
 
@@ -25,11 +28,11 @@ public class LoggingAspect {
 
     @Before("com.spring.aop.ascpect.AopExpressions.forDaoPackageNoGetterSetter()")
     public void beforeAddAccountAdvice(JoinPoint joinPoint) {
-        System.out.println("\n=====> Executing @Before advice on method");
+        myLogger.info("\n=====> Executing @Before advice on method");
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
 
         // display method signature
-        System.out.println("\nMethod: " + methodSignature);
+        myLogger.info("\nMethod: " + methodSignature);
 
         // display method arguments
         Object[] args = joinPoint.getArgs();
@@ -43,14 +46,14 @@ public class LoggingAspect {
     @After("execution(* com.spring.aop.dao.AccountDAO.findAccounts(..))")
     public void afterFindAccounts(JoinPoint joinPoint) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====> Executing @After on method: " + method
+        myLogger.info("\n=====> Executing @After on method: " + method
                 + " regardless of the outcome");
     }
 
     @Around("execution(* com.spring.aop.dao.CustomerDAO.getCustomers(..))")
     public Object beforeAndAfter(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String method = proceedingJoinPoint.getSignature().toShortString();
-        System.out.println("\n=====> Executing @Aaround on method: " + method
+        myLogger.info("\n=====> Executing @Aaround on method: " + method
                 + " regardless of the outcome");
 
         long begin = System.currentTimeMillis();
@@ -61,7 +64,7 @@ public class LoggingAspect {
 
         long duration = end - begin;
 
-        System.out.println("\n=====> Duration: " + duration / 1000 + " seconds");
+        myLogger.info("\n=====> Duration: " + duration / 1000 + " seconds");
 
         return result;
     }
@@ -71,8 +74,8 @@ public class LoggingAspect {
             returning = "result")
     public void afterReturningFindAccounts(JoinPoint joinPoint, List<Account> result) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====> Executing @AfterReturning on method: " + method);
-        System.out.println("\n=====> result is: " + result);
+        myLogger.info("\n=====> Executing @AfterReturning on method: " + method);
+        myLogger.info("\n=====> result is: " + result);
     }
 
     @AfterThrowing(
@@ -81,9 +84,9 @@ public class LoggingAspect {
     )
     public void afterThrowingFindAccounts(JoinPoint joinPoint, Throwable exc) {
         String method = joinPoint.getSignature().toShortString();
-        System.out.println("\n=====> Executing @AfterThrowing on method: " + method);
+        myLogger.info("\n=====> Executing @AfterThrowing on method: " + method);
 
         // log in exception
-        System.out.println("\n=====> The exception is: " + exc);
+        myLogger.info("\n=====> The exception is: " + exc);
     }
 }
