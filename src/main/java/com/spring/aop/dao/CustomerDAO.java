@@ -7,15 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class CustomerDAO {
-    public List<Customer> getCustomers() {
+    public List<Customer> getCustomers(boolean flag) {
         List<Customer> customers = new ArrayList<>();
         customers.add(new Customer("Dazz", "Kaminski"));
         customers.add(new Customer("John", "Walker"));
 
+        if(flag) throw new RuntimeException("No customers found");
+
         // simulate a delay
         try {
             TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

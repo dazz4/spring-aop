@@ -58,7 +58,14 @@ public class LoggingAspect {
 
         long begin = System.currentTimeMillis();
 
-        Object result = proceedingJoinPoint.proceed();
+        Object result = null;
+
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch (Exception e) {
+            myLogger.warning(e.getMessage());
+            result = "Nothing exciting here. Move along!";
+        }
 
         long end = System.currentTimeMillis();
 

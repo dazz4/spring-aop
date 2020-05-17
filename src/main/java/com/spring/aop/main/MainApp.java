@@ -45,7 +45,7 @@ public class MainApp {
         }
 
         // call method to get customers
-        customerDAO.getCustomers();
+        customerDAO.getCustomers(true);
 
         // close the context
         context.close();
