@@ -15,7 +15,7 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "Account {" +
                 "name='" + name + '\'' +
                 ", level='" + level + '\'' +
                 '}';
