@@ -56,22 +56,15 @@ public class LoggingAspect {
         myLogger.info("\n=====> Executing @Aaround on method: " + method
                 + " regardless of the outcome");
 
-        long begin = System.currentTimeMillis();
-
         Object result = null;
-
         try {
             result = proceedingJoinPoint.proceed();
         } catch (Exception e) {
-            myLogger.warning(e.getMessage());
-            result = "Nothing exciting here. Move along!";
+            myLogger.warning("We have a problem at @Around: " + e.getMessage());
+            // result = "Nothing exciting here. Move along!";
+            // rethrow the exception
+            throw e;
         }
-
-        long end = System.currentTimeMillis();
-
-        long duration = end - begin;
-
-        myLogger.info("\n=====> Duration: " + duration / 1000 + " seconds");
 
         return result;
     }
