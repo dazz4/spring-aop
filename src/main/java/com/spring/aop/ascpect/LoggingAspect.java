@@ -13,6 +13,16 @@ public class LoggingAspect {
     @Pointcut("execution(* com.spring.aop.dao.*.*(..))")
     private void forDaoPackage() {}
 
+    @Pointcut("execution(* com.spring.aop.dao.*.get*(..))")
+    private void getter() {}
+
+    @Pointcut("execution(* com.spring.aop.dao.*.set*(..))")
+    private void setter() {}
+
+    // combining pointcuts
+    @Pointcut(("forDaoPackage() && !(getter() || setter())"))
+    private void forDaoPackageNoGetterSetter() {}
+
     // add related advices for logging
 
     // () - matches a method with no arguments
@@ -38,10 +48,11 @@ public class LoggingAspect {
         System.out.println("\n=====> Add* method with (Account obj, ..))");
     }
 
-    @Before("forDaoPackage()")
+    @Before("forDaoPackageNoGetterSetter()")
     public void anyClassAndMethod() {
 
         System.out.println("\n=====> Before any method in the dao package");
     }
+
 
 }
